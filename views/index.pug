@@ -3,7 +3,7 @@ extends layout
 block content
   h1= title
   p 
-    a(class="button", href="new_book.html") Create New Book 
+    a(class="button", href="/books/new") Create New Book 
 
   table
     thead 
@@ -12,3 +12,12 @@ block content
         th Author
         th Genre 
         th Year
+
+    tbody
+      each book in books
+        tr
+          td
+            a(href="book_detail.html")= book.title
+          td= book.author
+          td= book.genre
+          td= book.year

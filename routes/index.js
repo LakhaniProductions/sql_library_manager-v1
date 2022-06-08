@@ -16,8 +16,34 @@ function asyncHandler(cb){
 
 /* GET home page. */
 router.get('/', asyncHandler(async(req, res) => {
+  res.redirect('/books');
+}));
+
+/* GET All books */
+router.get('/books', asyncHandler(async(req, res) => {
   const books = await Book.findAll();
   res.render('index', {books, title:'Books'});
 }));
+
+// /* GET individual book */
+// router.get('/books/:id', asyncHandler(async(req, res) => {
+//   const books = await Book.findAll();
+//   res.render('update-book', {books, title:'Books'});
+// }));
+
+/* GET new book form */
+router.get('/books/new', asyncHandler(async(req, res) => {
+  res.render('new-book', {book: {}, title:'New Book'});
+}));
+
+/* POST create book */
+router.post('/', asyncHandler(async(req, res) => {
+  const book = await Book.create(req.body);
+  res.redirect('/');
+}));
+
+
+
+
 
 module.exports = router;

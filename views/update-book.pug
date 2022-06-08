@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    h1= title
+    form
+        p
+            label(for="title") Title
+            input(type="text" name="title" id="title")
+        
+        p
+            label(for="author") Author
+            input(type="text" name="title" id="author")  
+
+        p
+            label(for="genre") Genre
+            input(type="text" name="title" id="genre")  
+
+        p
+            label(for="year") Year
+            input(type="text" name="title" id="year")  
+
+        p
+            input(type="submit", value="Create New Book")
+        
+        p
+            a(class="button" href="all_books.html") Cancel 
+    form(method="post" action="" ) 
