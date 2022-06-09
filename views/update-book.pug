@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1= title
-    form
+    form(method="post")
         p
             label(for="title") Title
             input(type="text" name="title" id="title" value=book.title)
@@ -21,7 +21,11 @@ block content
 
         p
             input(type="submit", value="Update Book")
-        
+          
+    form(action=`/books/${book.id}/delete` method="post") 
         p
-            a(class="button" href="all_books.html") Cancel 
-    form(method="post" ) 
+            a(class="button" href="/") Cancel 
+        p
+            input(type="submit" value="Delete Book")
+            
+        
