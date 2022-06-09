@@ -2,6 +2,9 @@ extends layout
 
 block content
     h1= title
+    
+    include form-error 
+
     form(method="post")
         p
             label(for="title") Title
