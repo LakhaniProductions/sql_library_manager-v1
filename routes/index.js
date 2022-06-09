@@ -30,6 +30,13 @@ router.get('/books', asyncHandler(async(req, res) => {
   res.render('index', {books, buttons, title:'Books'});
 }));
 
+router.get('/books/page1', asyncHandler(async(req, res) => {
+  const books = await Book.findAll({offset:0,limit:5});
+  const allBooks = await Book.findAll();
+  const buttons=Math.ceil(Object.keys(allBooks).length/5);
+  res.render('index', {books, buttons, title:'Books'});
+}));
+
 router.get('/books/page2', asyncHandler(async(req, res) => {
   const books = await Book.findAll({offset:5,limit:5});
   const allBooks = await Book.findAll();
