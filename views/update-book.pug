@@ -5,23 +5,23 @@ block content
     form
         p
             label(for="title") Title
-            input(type="text" name="title" id="title")
+            input(type="text" name="title" id="title" value=book.title)
         
         p
             label(for="author") Author
-            input(type="text" name="title" id="author")  
+            input(type="text" name="author" id="author" value=book.author)  
 
         p
             label(for="genre") Genre
-            input(type="text" name="title" id="genre")  
+            input(type="text" name="genre" id="genre" value=book.genre)  
 
         p
             label(for="year") Year
-            input(type="text" name="title" id="year")  
+            input(type="text" name="year" id="year" value=book.year)  
 
         p
-            input(type="submit", value="Create New Book")
+            input(type="submit", value="Update Book")
         
         p
             a(class="button" href="all_books.html") Cancel 
-    form(method="post" action="" ) 
+    form(method="post" ) 
