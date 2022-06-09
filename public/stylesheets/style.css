@@ -95,3 +95,11 @@ input[type=text] {
 .error {
   color: rgb(236, 15, 15);
 }
+
+.buttons{
+  display: flex;
+  justify-content: center;
+}
+.links{
+  padding: 0 12px;
+}

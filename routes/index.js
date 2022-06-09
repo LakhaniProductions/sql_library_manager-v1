@@ -8,11 +8,14 @@ function asyncHandler(cb){
   return async(req, res, next) => {
     try {
       await cb(req, res, next)
+      console.log(Book);
     } catch(error){
-      res.status(500).send(error);
+      // res.status(500).send(error);
+      next(error);
     }
   }
 }
+
 
 /* GET home page. */
 router.get('/', asyncHandler(async(req, res) => {
@@ -21,8 +24,31 @@ router.get('/', asyncHandler(async(req, res) => {
 
 /* GET All books */
 router.get('/books', asyncHandler(async(req, res) => {
-  const books = await Book.findAll();
-  res.render('index', {books, title:'Books'});
+  const books = await Book.findAll({limit:5});
+  const allBooks = await Book.findAll();
+  const buttons=Math.ceil(Object.keys(allBooks).length/5);
+  res.render('index', {books, buttons, title:'Books'});
+}));
+
+router.get('/books/page2', asyncHandler(async(req, res) => {
+  const books = await Book.findAll({offset:5,limit:5});
+  const allBooks = await Book.findAll();
+  const buttons=Math.ceil(Object.keys(allBooks).length/5);
+  res.render('index', {books, buttons, title:'Books'});
+}));
+
+router.get('/books/page3', asyncHandler(async(req, res) => {
+  const books = await Book.findAll({offset:10,limit:5});
+  const allBooks = await Book.findAll();
+  const buttons=Math.ceil(Object.keys(allBooks).length/5);
+  res.render('index', {books, buttons, title:'Books'});
+}));
+
+router.get('/books/page4', asyncHandler(async(req, res) => {
+  const books = await Book.findAll({offset:15,limit:5});
+  const allBooks = await Book.findAll();
+  const buttons=Math.ceil(Object.keys(allBooks).length/5);
+  res.render('index', {books, buttons, title:'Books'});
 }));
 
 /* GET new book form */
@@ -91,7 +117,6 @@ router.post('/books/:id/delete', asyncHandler(async(req, res) => {
     res.sendStatus(404);
   }
 }));
-
 
 
 
