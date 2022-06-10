@@ -8,12 +8,15 @@ function asyncHandler(cb){
   return async(req, res, next) => {
     try {
       await cb(req, res, next)
+      const allBooks= await Book.findAll();
+      console.log(allBooks);
     } catch(error){
       // res.status(500).send(error);
       next(error);
     }
   }
 }
+
 
 /* GET home page. */
 router.get('/', asyncHandler(async(req, res) => {
@@ -28,30 +31,16 @@ router.get('/books', asyncHandler(async(req, res) => {
   res.render('index', {books, buttons, title:'Books'});
 }));
 
-router.get('/books/page1', asyncHandler(async(req, res) => {
-  res.redirect('/books');
-}));
-router.get('/books/page2', asyncHandler(async(req, res) => {
-  const books = await Book.findAll({offset:5,limit:5});
+router.get('/books/page:number', asyncHandler(async(req, res) => {
+  const number=req.params.number;
+  const offsetVal= (number*5)-5;
+  const books = await Book.findAll({offset:offsetVal,limit:5});
   const allBooks = await Book.findAll();
   const buttons=Math.ceil(Object.keys(allBooks).length/5);
   
   res.render('index', {books, buttons, title:'Books'});
 }));
 
-router.get('/books/page3', asyncHandler(async(req, res) => {
-  const books = await Book.findAll({offset:10,limit:5});
-  const allBooks = await Book.findAll();
-  const buttons=Math.ceil(Object.keys(allBooks).length/5);
-  res.render('index', {books, buttons, title:'Books'});
-}));
-
-router.get('/books/page4', asyncHandler(async(req, res) => {
-  const books = await Book.findAll({offset:15,limit:5});
-  const allBooks = await Book.findAll();
-  const buttons=Math.ceil(Object.keys(allBooks).length/5);
-  res.render('index', {books, buttons, title:'Books'});
-}));
 
 /* GET new book form */
 router.get('/books/new', (req, res) => {
