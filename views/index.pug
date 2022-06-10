@@ -1,7 +1,13 @@
 extends layout
 
 block content
-  h1= title
+  .header
+    h1= title
+    form(action="/books" method="post" class="searchform")
+        p
+          input(type="text" name="title" id="title" placeholder="Search Title, Author, Genre, Year" class="search")
+        p
+          input(type="submit", value="Search" class="submit")
   p 
     a(class="button", href="/books/new") Create New Book 
 
@@ -21,6 +27,7 @@ block content
           td= book.author
           td= book.genre
           td= book.year
+
   - var n = 1;
   ul.buttons  
     while n <= buttons

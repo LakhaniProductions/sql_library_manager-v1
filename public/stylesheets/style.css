@@ -103,3 +103,15 @@ input[type=text] {
 .links{
   padding: 0 12px;
 }
+.header{
+  display: flex;
+  justify-content: space-between;
+
+}
+.searchform{
+  display: flex;
+
+}
+.searchform p .submit{
+  margin-left: 5px ;
+}
