@@ -112,6 +112,19 @@ input[type=text] {
   display: flex;
 
 }
+
+.searchform p{
+  margin: 20px 0;
+
+}
 .searchform p .submit{
   margin-left: 5px ;
+}
+
+.searchform p .button{
+  margin: 0 0 0 5px;
+  top: 7px;
+  position: relative;
+  background-color: #FF4136;
+
 }
