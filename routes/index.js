@@ -26,11 +26,56 @@ router.get('/', asyncHandler(async(req, res) => {
 
 /* GET All books */
 router.get('/books', asyncHandler(async(req, res) => {
-  const books = await Book.findAll({limit:perPage});
-  const allBooks = await Book.findAll();
-  const buttons=Math.ceil(Object.keys(allBooks).length/perPage);
+
+  let books;
+  let query;
+  let buttons;
+
+
+ 
+  query=JSON.stringify(Object.values(req.query));
+  const cleansed = query
+    .replaceAll("[","")
+    .replaceAll(`"`,"")
+    .replaceAll(`]`,"")
+
+  if(cleansed !==''){
+    books = await Book.findAll({ where: {
+        [Op.or]: [{title:cleansed}, {author:cleansed}, {genre:cleansed}, {year:cleansed}]
+        }});
+    if(Object.keys(books).length/5 > 1 ){
+      buttons=Math.ceil(Object.keys(books).length/perPage);
+    }
+  } else {
+    books = await Book.findAll({limit:perPage});
+    const allBooks = await Book.findAll();
+    buttons=Math.ceil(Object.keys(allBooks).length/perPage);
+
+  }
+    
+    
+
+  
+  
+ 
+  
+
+ 
   res.render('index', {books, buttons, title:'Books'});
 }));
+
+// router.post('/books', asyncHandler(async(req, res) => {
+
+//   const books = await Book.findAll({ where: {
+//     [Op.or]: [{title:req.body}, {author:req.body}, {genre:req.body}, {year:req.body}]
+//   }});
+
+//   // res.render('index', {books, buttons, title:'Books'});
+//   res.render('index', {books});
+
+    
+  
+// }));
 
 
 
@@ -93,18 +138,7 @@ router.post('/books/:id', asyncHandler(async(req, res) => {
   }
 }));
 
-router.post('/books', asyncHandler(async(req, res) => {
 
-  const books = await Book.findAll({ where: {
-    [Op.or]: [{title:req.body}, {author:req.body}, {genre:req.body}, {year:req.body}]
-  }});
-
-  // res.render('index', {books, buttons, title:'Books'});
-  res.render('index', {books});
-
-    
-  
-}));
 
 
 /* Delete individual book */

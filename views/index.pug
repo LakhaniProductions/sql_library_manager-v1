@@ -3,11 +3,11 @@ extends layout
 block content
   .header
     h1= title
-    form(action="/books" method="post" class="searchform")
+    form(class="searchform")
         p
-          input(type="text" name="title" id="title" placeholder="Search Title, Author, Genre, Year" class="search")
+          input(type="text" id="title" name="query" placeholder="Search Title, Author, Genre, Year" class="search")
         p
-          input(type="submit", value="Search" class="submit")
+          input(type="submit", class="submit")
   p 
     a(class="button", href="/books/new") Create New Book 
 
