@@ -120,13 +120,7 @@ router.post('/books/new', asyncHandler(async(req, res) => {
 /* Edit individual book */
 router.get('/books/:id', asyncHandler(async(req, res) => {
   const book = await Book.findByPk(req.params.id);
-
-  if(book){
-    res.render('update-book', {book, title: 'Update Book'});
-  } else {
-      res.render('404', {message: 'Book does not exist'});
-  }
-  
+  book ? res.render('update-book', {book, title: 'Update Book'}) : res.render('404', {message: 'Book does not exist'});
 }));
 
 /* Update book */
